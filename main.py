@@ -3,6 +3,9 @@ import json
 import socket
 
 
+
+
+
 # def bot():
 #     TOKEN = '1808517150:AAH29icWhsWh-uBG3Icw10wqhYCsb8tf7IA'
 #     t = 'https://api.telegram.org/bot1808517150:AAH29icWhsWh-uBG3Icw10wqhYCsb8tf7IA/getUpdates'
@@ -22,11 +25,13 @@ Connection: close
 
 f = b'''HTTP/1.1 200 OK
 Content-Type: text/html; charset=utf-8
-Content-Length: 129
+Content-Length: 16
 
 <h1> hello </h1>
 '''
 
+
+#https://api.telegram.org/bot1808517150:AAH29icWhsWh-uBG3Icw10wqhYCsb8tf7IA/setWebhook?url=https://8ddf-31-181-124-249.ngrok-free.app
 
 def server():
     print("start")
@@ -37,17 +42,38 @@ def server():
 
     conn, addr = sock.accept()
 
-    print(conn, addr)
+    #print(conn, addr)
 
     while True:
         data = conn.recv(1024)
+
         if not data:
             break
-        print(f)
+        print("-----------------")
+
+        d = json.loads(data.decode().split("\r\n\r\n")[1])
+
+        chat = d['message']['chat']['id']
+        text = d['message']['text']
+
+        print(chat)
+        print(text)
+
         conn.send(f)
+
 
 
     conn.close()
 
+
+# def up():
+#     TOKEN = '1808517150:AAH29icWhsWh-uBG3Icw10wqhYCsb8tf7IA'
+#     methodUpdate = 'getUpdates'
+#     methodSendMsg = 'sendMessage'
+#     setWebhook = 'setWebhook'
+#
+#     api = f'https://api.telegram.org/bot{TOKEN}/{methodUpdate}'
+#     r = requests.get(api)
+#     print(r.json())
 
 server()
