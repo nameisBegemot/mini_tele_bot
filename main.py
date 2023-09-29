@@ -8,9 +8,35 @@ methodUpdate = 'getUpdates'
 methodSendMsg = 'sendMessage'
 setWebhook = 'setWebhook'
 
-#https://api.telegram.org/bot1808517150:AAH29icWhsWh-uBG3Icw10wqhYCsb8tf7IA/setWebhook?url=https://d15d-31-181-124-249.ngrok-free.app
-#https://api.telegram.org/bot1808517150:AAH29icWhsWh-uBG3Icw10wqhYCsb8tf7IA/getWebhookInfo
-#https://api.telegram.org/bot1808517150:AAH29icWhsWh-uBG3Icw10wqhYCsb8tf7IA/setWebhook?url=https://fd85-31-181-124-249.ngrok-free.app&drop_pending_updates=true
+ngrok = "https://38aa-31-181-124-249.ngrok-free.app"
+
+simpl_webhook = f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={ngrok}"
+get_webhook = f"https://api.telegram.org/bot{TOKEN}/getWebhookInfo"
+reset_webhook = f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={ngrok}&drop_pending_updates=true"
+del_web = f"https://api.telegram.org/bot{TOKEN}/deletWebhookInfo"
+
+
+post_rev = b'''HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 16
+
+<h1> hello </h1>
+'''
+
+
+def set_webhook():
+    r = requests.get(reset_webhook)
+    print(r.json())
+
+
+def del_webhook():
+    r = requests.get(del_web)
+    print(r.json())
+
+
+def get_web():
+    r = requests.get(get_webhook)
+    print(r.json())
 
 
 def sendMSG(chat_id, text='hi'):
@@ -44,6 +70,7 @@ def server():
                 print(text)
 
                 sendMSG(chat)
+                conn.send(post_rev)
         conn.close()
 
 
