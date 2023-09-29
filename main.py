@@ -13,7 +13,7 @@ ngrok = "https://38aa-31-181-124-249.ngrok-free.app"
 simpl_webhook = f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={ngrok}"
 get_webhook = f"https://api.telegram.org/bot{TOKEN}/getWebhookInfo"
 reset_webhook = f"https://api.telegram.org/bot{TOKEN}/setWebhook?url={ngrok}&drop_pending_updates=true"
-del_web = f"https://api.telegram.org/bot{TOKEN}/deletWebhookInfo"
+del_web = f"https://api.telegram.org/bot{TOKEN}/deleteWebhook"
 
 
 post_rev = b'''HTTP/1.1 200 OK
@@ -74,4 +74,5 @@ def server():
         conn.close()
 
 
-server()
+get_web()
+
